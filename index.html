@@ -436,7 +436,6 @@ body {
 .badge-good { background: rgba(156,163,175,0.15); color: var(--text-secondary); }
 .badge-paper { background: rgba(212,168,83,0.15); color: var(--accent-gold); }
 .badge-digital { background: rgba(164,139,250,0.15); color: var(--accent-violet); }
-.badge-sudanese { background: rgba(251,191,36,0.15); color: var(--accent-amber); }
 
 .card-title {
   font-family: 'Noto Kufi Arabic', serif;
@@ -792,7 +791,6 @@ body {
 
 [data-theme="light"] .badge-paper { background: rgba(184,134,46,0.1); }
 [data-theme="light"] .badge-digital { background: rgba(124,92,214,0.1); }
-[data-theme="light"] .badge-sudanese { background: rgba(212,155,10,0.1); }
 [data-theme="light"] .badge-great { background: rgba(13,155,122,0.1); }
 [data-theme="light"] .badge-beautiful { background: rgba(59,130,246,0.1); }
 [data-theme="light"] .badge-good { background: rgba(85,85,102,0.1); }
@@ -918,14 +916,6 @@ const DATA = {
     { title: "أن تلمس الكتب", author: "خيسوس مارتشا مالوغارثيا", publisher: "تكوين", desc: "احتفاء بالكتاب ككائن مادي وعلاقة القارئ الحسية بالصفحات.", month: 11 },
     { title: "فهم الانهيار: بين التاريخ القديم والخرافات المعاصرة", author: "غاي د. ميدلتون", publisher: "نماء", desc: "دراسة لانهيار الحضارات القديمة وما يمكن أن نتعلمه منها.", month: 12 },
   ],
-  books_sudanese: [
-    { title: "تاريخ دارفور السياسي: 1882-1898", author: "موسى المبارك الحسن", publisher: "", desc: "دراسة تاريخية معمقة للمرحلة السياسية الحرجة في تاريخ دارفور خلال فترة المهدية والاستعمار.", month: 4 },
-    { title: "موسم الهجرة إلى الشمال", author: "الطيب صالح", publisher: "", desc: "الرواية العربية الأشهر عن صدام الحضارات بين الشرق والغرب، واحدة من أهم 100 رواية في التاريخ.", month: 5 },
-    { title: "عرس الزين", author: "الطيب صالح", publisher: "", desc: "رواية ساحرة عن الحياة في قرية سودانية على ضفاف النيل والتحولات الاجتماعية فيها.", month: 6 },
-    { title: "شوق الدرويش", author: "حمور زيادة", publisher: "", desc: "رواية حائزة على جائزة نجيب محفوظ، تدور في السودان زمن المهدية وتمزج بين التاريخ والعشق الصوفي.", month: 7 },
-    { title: "الجنقو: مسامير الأرض", author: "عبد العزيز بركة ساكن", publisher: "", desc: "رواية عن عمال موسم الحصاد في السودان وحكاياتهم وأحلامهم وصراعاتهم مع القهر.", month: 9 },
-    { title: "ريح الجنوب", author: "أمير تاج السر", publisher: "", desc: "رواية للكاتب السوداني أمير تاج السر تستكشف الحياة والمجتمع في السودان بأسلوب سردي متميز.", month: 11 },
-  ],
   films_great: [
     { title: "Kokuho", desc: "فيلم ياباني يغوص في التقاليد الثقافية اليابانية العريقة بلغة سينمائية حديثة.", month: 2 },
     { title: "Sinners", desc: "فيلم من إخراج رايان كوغلر، يمزج بين الرعب والدراما في إطار الجنوب الأمريكي في عشرينيات القرن الماضي.", month: 3 },
@@ -1047,7 +1037,6 @@ function getAllItems() {
   return [
     ...DATA.books_paper.map(b => ({...b, type: 'book', subtype: 'paper'})),
     ...DATA.books_digital.map(b => ({...b, type: 'book', subtype: 'digital'})),
-    ...DATA.books_sudanese.map(b => ({...b, type: 'book', subtype: 'sudanese'})),
     ...DATA.films_great.map(f => ({...f, type: 'film', subtype: 'great'})),
     ...DATA.films_beautiful.map(f => ({...f, type: 'film', subtype: 'beautiful'})),
     ...DATA.films_good.map(f => ({...f, type: 'film', subtype: 'good'})),
@@ -1079,7 +1068,7 @@ function createCard(item) {
   if (item.type === 'book') {
     if (item.subtype === 'paper') { badgeClass = 'badge-paper'; badgeText = 'ورقي'; }
     else if (item.subtype === 'digital') { badgeClass = 'badge-digital'; badgeText = 'أبجد'; }
-    else { badgeClass = 'badge-sudanese'; badgeText = 'سوداني'; }
+    else { badgeClass = 'badge-digital'; badgeText = 'أبجد'; }
   } else if (item.type === 'film') {
     if (item.subtype === 'great') { badgeClass = 'badge-great'; badgeText = 'عظيم'; }
     else if (item.subtype === 'beautiful') { badgeClass = 'badge-beautiful'; badgeText = 'جميل'; }
@@ -1214,10 +1203,8 @@ function render() {
   if (activeTab === 'all' || activeTab === 'books') {
     const paper = filterItems(DATA.books_paper.map(b => ({...b, type:'book', subtype:'paper'})));
     const digital = filterItems(DATA.books_digital.map(b => ({...b, type:'book', subtype:'digital'})));
-    const sudanese = filterItems(DATA.books_sudanese.map(b => ({...b, type:'book', subtype:'sudanese'})));
     html += renderSection('الكتب الورقية', '📖', paper);
     html += renderSection('كتب أبجد', '📱', digital);
-    html += renderSection('الكتب السودانية', '🇸🇩', sudanese);
   }
 
   if (activeTab === 'all' || activeTab === 'films') {
